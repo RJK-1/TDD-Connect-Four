@@ -73,7 +73,7 @@ class ConnectFourGame
     next_player = player == 1 ? 2 : 1
     puts "Would you like to start a new game? Y/N".green.bold
     input = gets.chomp.downcase
-    if input = 'y'
+    if input == 'y'
       board = ConnectFourBoard.new
       game = ConnectFourGame.new(board)
       game.play_game(next_player)

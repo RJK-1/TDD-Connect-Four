@@ -48,6 +48,7 @@ class ConnectFourBoard
   def full?
     array = @board.flatten
     return true if !array.include? ' '
+    false
   end
 
   def get_column(column)
