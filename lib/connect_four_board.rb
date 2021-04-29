@@ -44,4 +44,63 @@ class ConnectFourBoard
   def last_move
     @last_move
   end
+
+  def full?
+    array = @board.flatten
+    return true if !array.include? ' '
+  end
+
+  def get_column(column)
+    list = []
+    @board.each { |row| list << row[column] }
+    list.join.strip
+  end
+  
+  def get_row(row)
+    list = []
+    list << @board[row]
+    list.join.strip
+  end
+
+  def get_diagonal1(move) # This diagonal is bottom left to top right
+    start = []
+    list = []
+    result = []
+    if move[0] == 0 || move[1] == 0
+      start = move
+    else
+      if move[0] < move[1] #row column
+        shift = move[0]
+        start = move.map { |num| num - shift }
+      else
+        shift = move[1]
+        start = move.map { |num| num - shift }
+      end
+    end
+    (6 - start[0]).times do
+      list << start
+      start = start.map { |num| num + 1 }
+    end
+    list.each { |pos| result << @board[pos[0]][pos[1]] }
+    result.join.strip
+  end
+
+  def get_diagonal2(move)
+    start = move
+    list = []
+    result = []
+
+    until start[0] == 0 || start[1] == 6 do
+      start[0] -= 1
+      start[1] += 1
+    end
+    
+    until start[0] == 6 || start[1] == -1 do
+      list << start
+      start = [start[0] + 1, start[1] - 1]
+    end
+
+    list.each { |pos| result << @board[pos[0]][pos[1]]}
+    result.join.strip
+  end
 end
